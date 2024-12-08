@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Alice",
+      "email": "alice@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Bob",
+      "email": "bob@example.com"
+    }
+  ],
+  "announcements": [
+    {
+      "id": "1",
+      "title": "Peinture moderne à vendre",
+      "description": "Une superbe peinture.",
+      "userId": 1
+    },
+    {
+      "id": "2",
+      "title": "Exposition photo",
+      "description": "Un événement à ne pas manquer.",
+      "userId": 2
+    },
+    {
+      "id": "9f55",
+      "title": "Tournois de flechettes ",
+      "description": "Compétition de fléchettes aux Valseuses autours de tournées de bières "
+    }
+  ]
+}
