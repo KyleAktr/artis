@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Nav from '../components/Nav';
 
 const Annoncements = () => {
     const [annoncements, setAnnoncement] = useState([]);
@@ -21,7 +22,7 @@ const Annoncements = () => {
 
     return (
         <div>
-            <Link to="/create">Publier une annonce</Link>
+            <Nav></Nav>
             <h1>Liste des Annonces</h1>
             <ul>
                 {annoncements.map((annoncement) => (

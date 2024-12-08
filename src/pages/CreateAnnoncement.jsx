@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Nav from "../components/Nav";
 
 const CreateAnnoncement = () => {
   const [title, setTitle] = useState("");
@@ -27,6 +29,7 @@ const CreateAnnoncement = () => {
 
   return (
     <div>
+        <Nav></Nav>
       <h1>Publier une annonce</h1>
       <form onSubmit={handleSubmit}>
         <div>

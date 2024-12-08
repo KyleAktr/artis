@@ -1,1 +1,4 @@
-/*# sourceMappingURL=index.css.map */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+}/*# sourceMappingURL=index.css.map */
