@@ -29,7 +29,7 @@ const CreateAnnoncement = () => {
 
   return (
     <div>
-        <Nav></Nav>
+      <Nav></Nav>
       <h1>Publier une annonce</h1>
       <form onSubmit={handleSubmit}>
         <div>

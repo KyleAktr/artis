@@ -1,3 +1,8 @@
+git clone
+npm install
+démarrer le serveur : json-server --watch db.json --port 3001
+démarrer le front : npm start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
