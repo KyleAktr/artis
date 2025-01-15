@@ -1,20 +1,15 @@
-import React from "react";
-import Button from "../components/Button";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
 import Nav from "../components/Nav";
+import { UserContext } from "../context/userContext";
 
 const Home = () => {
-  const handleClick = () => {
-    alert("Bouton cliqué !");
-  };
+  const { currentUser } = useContext(UserContext);
+
   return (
     <div>
       <Nav></Nav>
       <h1>HOME</h1>
-      <Button label="Clique ici" onClick={handleClick} />
-      <NavLink to="/about">
-        <li>Page About</li>
-      </NavLink>
+      {currentUser ? "Ravi de te revoir" : "Yo, connecte toi"}
     </div>
   );
 };

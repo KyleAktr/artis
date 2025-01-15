@@ -6,6 +6,8 @@ import UserAnnoncements from "./pages/UserAnnoncements";
 import CreateAnnoncement from "./pages/CreateAnnoncement";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Private from "./pages/private/Private";
+import PrivateHome from "./pages/private/privateHome/PrivateHome";
 
 const App = () => {
   return (
@@ -19,6 +21,9 @@ const App = () => {
         <Route path="/create" element={<CreateAnnoncement />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/private" element={<Private />}>
+          <Route path="/private/private-home" element={<PrivateHome />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
