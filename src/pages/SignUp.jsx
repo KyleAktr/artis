@@ -2,9 +2,11 @@ import React, { useContext, useRef, useState } from "react";
 import { UserContext } from "../context/userContext";
 import Nav from "../components/Nav";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/img/logo_artis.png";
+import GoogleLogo from "../assets/img/google-logo.png";
 
 const SignUp = () => {
-  const { signUp } = useContext(UserContext);
+  const { signUp, signInGoogle } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -41,9 +43,9 @@ const SignUp = () => {
       formRef.current.reset();
       setValidation("");
       navigate("/private/private-home");
-      // console.log(cred);
+      console.log(cred);
     } catch (err) {
-      // console.dir(err);
+      console.dir(err);
       if (err.code === "auth/invalid-email") {
         setValidation("Le format de l'e-mail n'est pas bon");
       }
@@ -53,14 +55,28 @@ const SignUp = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInGoogle();
+      navigate("/private/private-home");
+    } catch (err) {
+      setValidation("Erreur avec Google. Réessayez.");
+      console.error(err);
+    }
+  };
+
+  const handleClick = () => {
+    navigate("/signin");
+  };
+
   return (
-    <div>
+    <div className="signup">
       <Nav></Nav>
-      <h1>SignUp</h1>
       <div className="signup-form">
+        <img className="logo" src={Logo} alt="" />
         <div className="to-signin">
           <p>Déjà inscit ? </p>
-          <a href="">M'identifier</a>
+          <a onClick={handleClick}>M'identifier</a>
         </div>
         <form ref={formRef} onSubmit={handleForm}>
           <label htmlFor="signUpEmail">
@@ -72,13 +88,13 @@ const SignUp = () => {
               placeholder="E-mail: "
             />
           </label>
-          <label htmlFor="signUpPWD">
+          <label htmlFor="signUpPwd">
             <input
               ref={addInputs}
               name="pwd"
               required
               type="password"
-              placeholder="Mot de passe: "
+              placeholder="Mot de passe: **********"
             />
           </label>
           <label htmlFor="repeatPwd">
@@ -87,12 +103,24 @@ const SignUp = () => {
               name="pwd"
               required
               type="password"
-              placeholder="Confirmer le mot de passe: "
+              placeholder="Confirmer le mot de passe: **********"
             />
           </label>
-          <p>{validation}</p>
+          <p className="validation">{validation}</p>
           <button>Connexion</button>
         </form>
+        <div className="connexion-with">
+          <div class="separator">
+            <span>Ou</span>
+          </div>
+          <img
+            onClick={handleGoogleSignIn}
+            className="google-logo"
+            src={GoogleLogo}
+            alt=""
+          />
+        </div>
+        <p>Artis © 2025</p>
       </div>
     </div>
   );

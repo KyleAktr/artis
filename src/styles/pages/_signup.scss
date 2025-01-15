@@ -1,0 +1,96 @@
+.signup {
+  background-color: #272727;
+  height: 90vh;
+
+  & .signup-form {
+    font-family: "Questrial", serif;
+    background-color: #272727;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    & .logo {
+      width: 50px;
+      margin-bottom: 30px;
+    }
+
+    & p {
+      color: #5f5f5f;
+      font-weight: 700;
+    }
+
+    & .to-signin {
+      display: flex;
+      margin-bottom: 30px;
+
+      & a {
+        margin-left: 10px;
+        text-decoration: none;
+        color: aliceblue;
+        cursor: pointer;
+      }
+    }
+
+    & form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & input {
+        margin-bottom: 15px;
+        width: 400px;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #707070;
+        background-color: #333333;
+        color: #bdbdbd;
+        font-weight: 700;
+      }
+
+      & button {
+        width: 200px;
+        padding: 15px 0;
+        border-radius: 10px;
+        border: 1px solid #707070;
+        margin: 30px auto 30px auto;
+        cursor: pointer;
+      }
+
+      & .validation {
+        color: #983c3c;
+      }
+    }
+
+    & .connexion-with {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      & .google-logo {
+        width: 40px;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+    }
+    & .separator {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #aaa;
+      width: 20%;
+      margin-bottom: 30px;
+    }
+
+    & .separator::before,
+    & .separator::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #707070; /* Couleur des lignes */
+      margin: 0 10px; /* Espacement entre le texte et les lignes */
+    }
+  }
+}

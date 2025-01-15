@@ -3,8 +3,12 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../firebase-config";
+
+const googleProvider = new GoogleAuthProvider();
 
 export const UserContext = createContext();
 
@@ -23,9 +27,11 @@ export function UserContextProvider(props) {
 
   const signUp = (email, pwd) =>
     createUserWithEmailAndPassword(auth, email, pwd);
+  const signIn = (email, pwd) => signInWithEmailAndPassword(auth, email, pwd);
+  const signInGoogle = () => signInWithPopup(auth, googleProvider);
 
   return (
-    <UserContext.Provider value={{ signUp, currentUser }}>
+    <UserContext.Provider value={{ signUp, currentUser, signIn, signInGoogle }}>
       {!loadingData && props.children}
     </UserContext.Provider>
   );
