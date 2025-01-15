@@ -10,7 +10,11 @@ const Home = () => {
     <div>
       <Nav></Nav>
       <h1>HOME</h1>
-      {currentUser ? "Ravi de te revoir" : "Yo, connecte toi"}
+      {currentUser ? (
+        <h2>Content de te revoir</h2>
+      ) : (
+        <h2>Tu n'est pas connecté</h2>
+      )}
       <Footer />
     </div>
   );

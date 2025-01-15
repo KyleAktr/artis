@@ -39,6 +39,15 @@
       flex-direction: column;
       align-items: center;
 
+      @media screen and (max-width: 560px) {
+        width: 100%;
+      }
+      & label {
+        @media screen and (max-width: 560px) {
+          width: 70%;
+        }
+      }
+
       & input {
         margin-bottom: 15px;
         width: 400px;
@@ -48,6 +57,10 @@
         background-color: #333333;
         color: #bdbdbd;
         font-weight: 700;
+
+        @media screen and (max-width: 560px) {
+          width: 100%;
+        }
       }
 
       & button {
@@ -81,8 +94,12 @@
       align-items: center;
       text-align: center;
       color: #aaa;
-      width: 20%;
+      width: 300px;
       margin-bottom: 30px;
+
+      @media screen and (max-width: 560px) {
+        width: 50%;
+      }
     }
 
     & .separator::before,
