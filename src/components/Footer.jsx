@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="about">
           <h3>À propos</h3>
           <ul>
-            <li>Qui somme nous ?</li>
+            <li>Qui sommes nous ?</li>
             <li>FAQ</li>
             <li>Notre but</li>
           </ul>

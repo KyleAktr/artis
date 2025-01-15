@@ -31,7 +31,7 @@ const SignIn = () => {
       navigate("/private/private-home");
       // console.log(cred);
     } catch {
-      setValidation("E-mail et/ou mot de passe n'est pas bon");
+      setValidation("E-mail et/ou mot de passe incorrect");
     }
   };
 

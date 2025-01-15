@@ -158,6 +158,9 @@
   margin: 30px auto 50px auto;
   cursor: pointer;
 }
+.signin .signin-form form .validation {
+  color: #983c3c;
+}
 .signin .signin-form .connexion-with {
   display: flex;
   flex-direction: column;

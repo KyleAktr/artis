@@ -43,7 +43,7 @@ const SignUp = () => {
       formRef.current.reset();
       setValidation("");
       navigate("/private/private-home");
-      console.log(cred);
+      // console.log(cred);
     } catch (err) {
       console.dir(err);
       if (err.code === "auth/invalid-email") {
@@ -75,7 +75,7 @@ const SignUp = () => {
       <div className="signup-form">
         <img className="logo" src={Logo} alt="" />
         <div className="to-signin">
-          <p>Déjà inscit ? </p>
+          <p>Déjà inscrit ? </p>
           <p className="navigate" onClick={handleClick}>
             M'identifier
           </p>
