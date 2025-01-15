@@ -129,7 +129,7 @@
   display: flex;
   margin-bottom: 30px;
 }
-.signin .signin-form .to-signup a {
+.signin .signin-form .to-signup .navigate {
   margin-left: 10px;
   text-decoration: none;
   color: aliceblue;
@@ -210,7 +210,7 @@
   display: flex;
   margin-bottom: 30px;
 }
-.signup .signup-form .to-signin a {
+.signup .signup-form .to-signin .navigate {
   margin-left: 10px;
   text-decoration: none;
   color: aliceblue;

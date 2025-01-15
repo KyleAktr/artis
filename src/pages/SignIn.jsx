@@ -56,7 +56,9 @@ const SignIn = () => {
         <img className="logo" src={Logo} alt="" />
         <div className="to-signup">
           <p>Première fois ici ? </p>
-          <a onClick={handleClick}>Inscivez-vous</a>
+          <p className="navigate" onClick={handleClick}>
+            Inscivez-vous
+          </p>
         </div>
         <form ref={formRef} onSubmit={handleForm}>
           <label htmlFor="signInEmail">

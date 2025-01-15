@@ -76,7 +76,9 @@ const SignUp = () => {
         <img className="logo" src={Logo} alt="" />
         <div className="to-signin">
           <p>Déjà inscit ? </p>
-          <a onClick={handleClick}>M'identifier</a>
+          <p className="navigate" onClick={handleClick}>
+            M'identifier
+          </p>
         </div>
         <form ref={formRef} onSubmit={handleForm}>
           <label htmlFor="signUpEmail">
