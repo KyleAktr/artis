@@ -5,25 +5,34 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../assets/img/logo_artis.png";
 import GoogleLogo from "../assets/img/google-logo.png";
 
+// Composant de la page d'inscription des utilisateurs
 const SignUp = () => {
+  // Récupère les fonctions `signUp` et `signInGoogle` du contexte UserContext
   const { signUp, signInGoogle } = useContext(UserContext);
 
+  // Hook pour naviguer entre les routes de l'application
   const navigate = useNavigate();
 
+  // État local pour stocker les messages de validation ou d'erreur
   const [validation, setValidation] = useState("");
 
+  // Référence utilisée pour récupérer les valeurs des champs de formulaire
   const inputs = useRef([]);
   const addInputs = (el) => {
+    // Ajoute chaque champ de formulaire à la référence `inputs` s'il n'y est pas déjà
     if (el && !inputs.current.includes(el)) {
       inputs.current.push(el);
     }
   };
 
+  // Référence pour manipuler le formulaire (par exemple pour le réinitialiser)
   const formRef = useRef();
 
+  // Fonction de gestion du formulaire d'inscription
   const handleForm = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Empêche le rechargement de la page par défaut lors de la soumission du formulaire
 
+    // Validation côté client : Vérifie que les mots de passe sont suffisants et identiques
     if (
       inputs.current[1].value.length < 6 ||
       inputs.current[2].value.length < 6
@@ -36,15 +45,16 @@ const SignUp = () => {
     }
 
     try {
+      // Appelle la fonction d'inscription avec e-mail et mot de passe
       const cred = await signUp(
         inputs.current[0].value,
         inputs.current[1].value
       );
-      formRef.current.reset();
-      setValidation("");
-      navigate("/private/private-home");
-      // console.log(cred);
+      formRef.current.reset(); // Réinitialise le formulaire
+      setValidation(""); // Réinitialise les messages de validation
+      navigate("/private/private-home"); // Redirige l'utilisateur vers une page privée
     } catch (err) {
+      // Gestion des erreurs spécifiques à Firebase
       console.dir(err);
       if (err.code === "auth/invalid-email") {
         setValidation("Le format de l'e-mail n'est pas bon");
@@ -55,16 +65,20 @@ const SignUp = () => {
     }
   };
 
+  // Fonction de gestion de l'inscription via Google
   const handleGoogleSignIn = async () => {
     try {
+      // Appelle la fonction d'authentification avec Google
       await signInGoogle();
-      navigate("/private/private-home");
+      navigate("/private/private-home"); // Redirige vers une page privée après la connexion
     } catch (err) {
+      // Affiche un message d'erreur en cas de problème avec l'authentification Google
       setValidation("Erreur avec Google. Réessayez.");
       console.error(err);
     }
   };
 
+  // Fonction pour rediriger vers la page de connexion
   const handleClick = () => {
     navigate("/signin");
   };
