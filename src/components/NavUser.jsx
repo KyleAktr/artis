@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
 
-const Nav = () => {
+const NavUser = () => {
   const navigate = useNavigate();
 
   const logOut = async () => {
@@ -19,17 +19,15 @@ const Nav = () => {
 
   return (
     <div className="navbar">
-      <div className="nav">
-        <Link to="/home">Accueil</Link>
-        <Link to="/signin">Se connecter</Link>
-        <Link to="/signup">S'inscrire</Link>
-        <Link to="/annoncements">Voir les annonces</Link>
-        <Link to="/create">Créer une annonce</Link>
-        <Link to="/about">A propos</Link>
-        <button onClick={logOut}>Déconnexion</button>
-      </div>
+      <Link to="/home">Accueil</Link>
+      <Link to="/signin">Se connecter</Link>
+      <Link to="/signup">S'inscrire</Link>
+      <Link to="/annoncements">Voir les annonces</Link>
+      <Link to="/create">Créer une annonce</Link>
+      <Link to="/about">A propos</Link>
+      <button onClick={logOut}>Déconnexion</button>
     </div>
   );
 };
 
-export default Nav;
+export default NavUser;

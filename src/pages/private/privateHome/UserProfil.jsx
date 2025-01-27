@@ -1,0 +1,21 @@
+import React, { useContext } from "react";
+import Nav from "../../../components/Nav";
+import { UserContext } from "../../../context/userContext";
+
+const UserProfil = () => {
+  const { currentUser } = useContext(UserContext);
+
+  return (
+    <div>
+      <Nav />
+      <h1>Bienvenue dans le clan Artis ! {currentUser.email}</h1>
+      <br />
+      <h2>
+        Avant de commencer à trouver tes nouveaux compagnons de route, nous
+        avons besoins de quelques informations.{" "}
+      </h2>
+    </div>
+  );
+};
+
+export default UserProfil;

@@ -52,7 +52,7 @@ const SignUp = () => {
       );
       formRef.current.reset(); // Réinitialise le formulaire
       setValidation(""); // Réinitialise les messages de validation
-      navigate("/private/private-home"); // Redirige l'utilisateur vers une page privée
+      navigate("/private/private-user-profil"); // Redirige l'utilisateur vers une page privée
     } catch (err) {
       // Gestion des erreurs spécifiques à Firebase
       console.dir(err);
@@ -70,7 +70,7 @@ const SignUp = () => {
     try {
       // Appelle la fonction d'authentification avec Google
       await signInGoogle();
-      navigate("/private/private-home"); // Redirige vers une page privée après la connexion
+      navigate("/private/private-user-profil"); // Redirige vers une page privée après la connexion
     } catch (err) {
       // Affiche un message d'erreur en cas de problème avec l'authentification Google
       setValidation("Erreur avec Google. Réessayez.");

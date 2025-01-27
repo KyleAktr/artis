@@ -1,5 +1,13 @@
-.navbar {
+.nav {
+  background-color: rgba(178, 197, 212, 0.486);
   display: flex;
   justify-content: space-around;
   height: 10vh;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+}
+
+.navbar {
+  padding-bottom: 10vh;
 }

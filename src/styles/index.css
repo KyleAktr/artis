@@ -6,10 +6,18 @@
   box-sizing: border-box;
 }
 
-.navbar {
+.nav {
+  background-color: rgba(178, 197, 212, 0.486);
   display: flex;
   justify-content: space-around;
   height: 10vh;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+}
+
+.navbar {
+  padding-bottom: 10vh;
 }
 
 .footer {
@@ -309,4 +317,8 @@
   flex: 1;
   border-bottom: 1px solid #707070; /* Couleur des lignes */
   margin: 0 10px; /* Espacement entre le texte et les lignes */
+}
+
+.annoncements ul li {
+  margin-bottom: 100px;
 }/*# sourceMappingURL=index.css.map */

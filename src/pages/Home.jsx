@@ -11,7 +11,7 @@ const Home = () => {
       <Nav></Nav>
       <h1>HOME</h1>
       {currentUser ? (
-        <h2>Content de te revoir</h2>
+        <h2>Bienvue {currentUser.email}</h2>
       ) : (
         <h2>Tu n'est pas connecté</h2>
       )}

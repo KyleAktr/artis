@@ -18,7 +18,7 @@ const Annoncements = () => {
   });
 
   return (
-    <div>
+    <div className="annoncements">
       <Nav></Nav>
       <h1>Liste des Annonces</h1>
       <ul>

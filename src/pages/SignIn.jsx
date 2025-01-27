@@ -38,7 +38,7 @@ const SignIn = () => {
       // Réinitialise les messages d'erreur
       setValidation("");
       // Redirige l'utilisateur vers une page privée après connexion réussie
-      navigate("/private/private-home");
+      navigate("/private/private-user-profil");
     } catch {
       // Affiche un message d'erreur si l'authentification échoue
       setValidation("E-mail et/ou mot de passe incorrect");
@@ -51,7 +51,7 @@ const SignIn = () => {
       // Appelle la fonction d'authentification avec Google
       await signInGoogle();
       // Redirige l'utilisateur vers une page privée après connexion réussie
-      navigate("/private/private-home");
+      navigate("/private/private-user-profil");
     } catch (err) {
       // Affiche un message d'erreur en cas de problème avec Google
       setValidation("Erreur avec Google. Réessayez.");
