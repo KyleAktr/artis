@@ -2,18 +2,24 @@ import React, { useContext } from "react";
 import Nav from "../components/Nav";
 import { UserContext } from "../context/userContext";
 import Footer from "../components/Footer";
+import NavUser from "../components/NavUser";
 
 const Home = () => {
   const { currentUser } = useContext(UserContext);
 
   return (
     <div>
-      <Nav></Nav>
-      <h1>HOME</h1>
+      {/* <Nav></Nav> */}
       {currentUser ? (
-        <h2>Bienvue {currentUser.email}</h2>
+        <>
+          <NavUser></NavUser>
+          <h2>Bienvue {currentUser.email}</h2>
+        </>
       ) : (
-        <h2>Tu n'est pas connecté</h2>
+        <>
+          <Nav></Nav>
+          <h2>Tu n'est pas connecté</h2>
+        </>
       )}
       <Footer />
     </div>

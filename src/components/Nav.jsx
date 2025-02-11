@@ -21,12 +21,12 @@ const Nav = () => {
     <div className="navbar">
       <div className="nav">
         <Link to="/home">Accueil</Link>
-        <Link to="/signin">Se connecter</Link>
-        <Link to="/signup">S'inscrire</Link>
         <Link to="/annoncements">Voir les annonces</Link>
         <Link to="/create">Créer une annonce</Link>
         <Link to="/about">A propos</Link>
-        <button onClick={logOut}>Déconnexion</button>
+        <Link to="/signin">Se connecter</Link>
+        <Link to="/signup">S'inscrire</Link>
+        {/* <button onClick={logOut}>Déconnexion</button> */}
       </div>
     </div>
   );

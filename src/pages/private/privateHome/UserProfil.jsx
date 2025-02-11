@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import Nav from "../../../components/Nav";
 import { UserContext } from "../../../context/userContext";
+import NavUser from "../../../components/NavUser";
 
 const UserProfil = () => {
   const { currentUser } = useContext(UserContext);
 
   return (
     <div>
-      <Nav />
+      <NavUser />
       <h1>Bienvenue dans le clan Artis ! {currentUser.email}</h1>
       <br />
       <h2>

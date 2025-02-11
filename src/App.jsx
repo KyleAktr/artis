@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import Private from "./pages/private/Private";
 import PrivateHome from "./pages/private/privateHome/PrivateHome";
 import UserProfil from "./pages/private/privateHome/UserProfil";
+import UserForm from "./pages/private/privateHome/UserForm";
 
 const App = () => {
   return (
@@ -25,6 +26,10 @@ const App = () => {
         <Route path="/private" element={<Private />}>
           <Route path="/private/private-home" element={<PrivateHome />} />
           <Route path="/private/private-user-profil" element={<UserProfil />} />
+          <Route
+            path="/private/private-user-profil-form"
+            element={<UserForm />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
