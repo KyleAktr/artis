@@ -1,14 +1,14 @@
-import { signOut } from "firebase/auth";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase-config";
+import { UserContext } from "../context/userContext";
 
 const NavUser = () => {
   const navigate = useNavigate();
+  const { signOutUser } = useContext(UserContext);
 
   const logOut = async () => {
     try {
-      await signOut(auth);
+      await signOutUser();
       navigate("/");
     } catch {
       alert(
@@ -23,9 +23,8 @@ const NavUser = () => {
         <Link to="/home">Accueil</Link>
         <Link to="/annoncements">Voir les annonces</Link>
         <Link to="/create">Créer une annonce</Link>
-        <Link to="/about">A propos</Link>
-        <Link to="/signin">Se connecter</Link>
-        <Link to="/signup">S'inscrire</Link>
+        <Link to="/about">À propos</Link>
+        <Link to="/private/private-user-profil">Mon Profil</Link>
         <button onClick={logOut}>Déconnexion</button>
       </div>
     </div>

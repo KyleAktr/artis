@@ -3,9 +3,11 @@ import { UserContext } from "../../../context/userContext";
 import NavUser from "../../../components/NavUser";
 import { db } from "../../../firebase-config";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
   const { currentUser } = useContext(UserContext);
+  const currentUserEmail = currentUser.email;
   const [validation, setValidation] = useState("");
   const [nom, setNom] = useState("");
   const [dicipline, setDicipline] = useState([
@@ -16,10 +18,10 @@ const UserForm = () => {
   const [details, setDetails] = useState("");
   const [city, setCity] = useState("");
   const [bio, setBio] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(currentUserEmail);
   const [website, setWebsite] = useState("");
 
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
 
   useEffect(() => {
     if (currentUser) {
@@ -55,6 +57,12 @@ const UserForm = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/private/private-user-profil");
+  };
+
   return (
     <div>
       <NavUser />
@@ -63,7 +71,7 @@ const UserForm = () => {
         Complétez votre profil pour être découvert et pour vous connecter avec
         d'autres artistes.
       </h1>
-      <div className="form-user">
+      <form className="form-user" onSubmit={handleClick}>
         <div className="user-infos">
           <h2>Informations générales</h2>
           <label>
@@ -100,7 +108,7 @@ const UserForm = () => {
           <label>
             Âge :
             <input
-              type="number"
+              type="text"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
@@ -135,7 +143,7 @@ const UserForm = () => {
 
         <p className="validation">{validation}</p>
         <button onClick={handleSave}>Enregistrer</button>
-      </div>
+      </form>
     </div>
   );
 };
