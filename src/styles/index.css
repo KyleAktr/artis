@@ -4,6 +4,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Questrial", serif;
 }
 
 .nav {
@@ -321,4 +322,40 @@
 
 .annoncements ul li {
   margin-bottom: 100px;
+}
+
+html {
+  background-color: #272727;
+  color: #ededed;
+}
+
+.form-user {
+  background-color: #333333;
+  padding: 60px;
+  width: 80%;
+  margin: 0 auto;
+}
+.form-user label {
+  margin-bottom: 20px;
+}
+.form-user h2 {
+  margin-bottom: 20px;
+}
+.form-user input {
+  width: 200px;
+}
+.form-user button {
+  margin: 0 auto;
+}
+.form-user .user-infos,
+.form-user .user-contact {
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+  padding: 80px;
+  margin-bottom: 40px;
+  border-radius: 20px;
 }/*# sourceMappingURL=index.css.map */
