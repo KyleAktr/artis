@@ -21,6 +21,17 @@ export function UserContextProvider(props) {
   const [userData, setUserData] = useState({});
   const [loadingData, setLoadingData] = useState(true);
 
+  // Fonction pour mettre à jour les données utilisateur
+  const updateUserData = async () => {
+    if (currentUser) {
+      const userRef = doc(db, "utilisateurs", currentUser.uid);
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists()) {
+        setUserData(docSnap.data());
+      }
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
@@ -65,6 +76,7 @@ export function UserContextProvider(props) {
         signIn,
         signInGoogle,
         signOutUser,
+        updateUserData,
         currentUser,
         userData,
       }}

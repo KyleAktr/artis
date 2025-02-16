@@ -6,7 +6,7 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, updateUserData } = useContext(UserContext);
   const currentUserEmail = currentUser.email;
   const [validation, setValidation] = useState("");
   const [nom, setNom] = useState("");
@@ -20,7 +20,6 @@ const UserForm = () => {
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState(currentUserEmail);
   const [website, setWebsite] = useState("");
-
   const [age, setAge] = useState("");
 
   useEffect(() => {
@@ -53,7 +52,7 @@ const UserForm = () => {
         { age, city, nom, details, bio, email, website },
         { merge: true }
       );
-      alert("Profil mis à jour !");
+      await updateUserData();
     }
   };
 
@@ -66,7 +65,6 @@ const UserForm = () => {
   return (
     <div>
       <NavUser />
-
       <h1>
         Complétez votre profil pour être découvert et pour vous connecter avec
         d'autres artistes.
