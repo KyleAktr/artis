@@ -10,17 +10,24 @@ const UserForm = () => {
   const currentUserEmail = currentUser.email;
   const [validation, setValidation] = useState("");
   const [nom, setNom] = useState("");
-  const [dicipline, setDicipline] = useState([
-    "musique",
-    "art du spéctacle",
-    "peinture",
-  ]);
+  const [dicipline, setDicipline] = useState("");
   const [details, setDetails] = useState("");
   const [city, setCity] = useState("");
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState(currentUserEmail);
   const [website, setWebsite] = useState("");
   const [age, setAge] = useState("");
+  const disciplines = [
+    "Musique",
+    "Art du spectacle",
+    "Peinture",
+    "Sculpture",
+    "Photographie",
+    "Danse",
+    "Théâtre",
+    "Mode",
+    "Audiovisuel"
+  ];
 
   useEffect(() => {
     if (currentUser) {
@@ -30,6 +37,7 @@ const UserForm = () => {
 
         if (docSnap.exists()) {
           setNom(docSnap.data().nom);
+          setDicipline(docSnap.data().dicipline || "");
           setDetails(docSnap.data().details);
           setCity(docSnap.data().city);
           setBio(docSnap.data().bio);
@@ -49,7 +57,7 @@ const UserForm = () => {
       const userRef = doc(db, "utilisateurs", currentUser.uid);
       await setDoc(
         userRef,
-        { age, city, nom, details, bio, email, website },
+        { age, city, nom, dicipline, details, bio, email, website },
         { merge: true }
       );
       await updateUserData();
@@ -82,7 +90,17 @@ const UserForm = () => {
           </label>
           <label>
             Dicipline(s) :
-            <input />
+            <select
+              value={dicipline}
+              onChange={(e) => setDicipline(e.target.value)}
+            >
+              <option value="">Sélectionnez une discipline</option>
+              {disciplines.map((disc) => (
+                <option key={disc} value={disc}>
+                  {disc.charAt(0).toUpperCase() + disc.slice(1)}
+                </option>
+              ))}
+            </select>
           </label>
 
           <label>
