@@ -5,7 +5,7 @@ import { UserContext } from "../context/userContext";
 import NavUser from "../components/NavUser";
 
 const CreateAnnoncement = () => {
-  const { currentUser, updateUserData } = useContext(UserContext);
+  const { currentUser, userData } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -17,6 +17,7 @@ const CreateAnnoncement = () => {
         const annoncesRef = collection(db, "annonces");
         await addDoc(annoncesRef, {
           userId: currentUser.uid,
+          creatorName: userData.nom || "Utilisateur inconnu",
           title,
           description,
           createdAt: new Date().toISOString(),

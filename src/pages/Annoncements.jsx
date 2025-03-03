@@ -33,6 +33,8 @@ const Annoncements = () => {
           <li key={annoncement.id}>
             <h2>{annoncement.title}</h2>
             <p>{annoncement.description}</p>
+            <p>Publié par : {annoncement.creatorName}</p>
+            <p>Le {new Date(annoncement.createdAt).toLocaleDateString()}</p>
           </li>
         ))}
       </ul>

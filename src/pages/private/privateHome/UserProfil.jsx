@@ -1,10 +1,44 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../../context/userContext";
+import { db } from "../../../firebase-config";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import NavUser from "../../../components/NavUser";
 import { Link, useNavigate } from "react-router-dom";
 
 const UserProfil = () => {
   const { currentUser, userData } = useContext(UserContext);
+  const [userAnnonces, setUserAnnonces] = useState([])
+
+  useEffect(() => {
+    const fetchUserAnnonces = async () => {
+      if (currentUser) {
+        try {
+          // Créer une requête pour filtrer les annonces par userId
+          const q = query(
+            collection(db, "annonces"),
+            where("userId", "==", currentUser.uid)
+          );
+          
+          const snapshot = await getDocs(q);
+          const annoncesData = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          
+          // Trier les annonces par date de création (plus récentes en premier)
+          const sortedAnnonces = annoncesData.sort((a, b) => 
+            new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          
+          setUserAnnonces(sortedAnnonces);
+        } catch (error) {
+          console.error("Erreur lors de la récupération des annonces:", error);
+        }
+      }
+    };
+
+    fetchUserAnnonces();
+  }, [currentUser]);
 
   return (
     <div className="user-profile">
@@ -50,6 +84,19 @@ const UserProfil = () => {
           Modifier mon profil
         </Link>
       </div>
+      <br />
+      <h2>Mes annonces :</h2>
+      {userAnnonces.length === 0 ? (
+            <p>Vous n'avez pas encore publié d'annonces.</p>
+          ) : (
+            userAnnonces.map((annonce) => (
+              <div key={annonce.id}>
+                <h3>{annonce.title}</h3>
+                <p>{annonce.description}</p>
+                <p>Publié le: {new Date(annonce.createdAt).toLocaleDateString()}</p>
+              </div>
+            ))
+          )}
     </div>
   );
 };
