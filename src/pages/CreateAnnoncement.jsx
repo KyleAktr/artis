@@ -1,35 +1,41 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Nav from "../components/Nav";
+import React, { useContext, useState } from "react";
+import { db } from "../firebase-config";
+import { addDoc, collection } from "firebase/firestore";
+import { UserContext } from "../context/userContext";
+import NavUser from "../components/NavUser";
 
 const CreateAnnoncement = () => {
+  const { currentUser, updateUserData } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newAnnoncement = {
-      title: title,
-      description: description,
-    };
+    if (currentUser) {
+      try {
+        const annoncesRef = collection(db, "annonces");
+        await addDoc(annoncesRef, {
+          userId: currentUser.uid,
+          title,
+          description,
+          createdAt: new Date().toISOString(),
+        });
 
-    try {
-      await axios.post("http://localhost:3001/announcements", newAnnoncement);
-      alert("Annonce créée avec succès");
-    } catch (error) {
-      console.error("Erreur lors de la création de l'annonce :", error);
-      alert("Erreur lors de la création de l'annonce.");
+        // Réinitialiser le formulaire
+        setTitle("");
+        setDescription("");
+        alert("Annonce créée avec succès!");
+      } catch (error) {
+        console.error("Erreur lors de la création de l'annonce:", error);
+        alert("Erreur lors de la création de l'annonce");
+      }
     }
-
-    setTitle("");
-    setDescription("");
   };
 
   return (
     <div>
-      <Nav></Nav>
+      <NavUser></NavUser>
       <h1>Publier une annonce</h1>
       <form onSubmit={handleSubmit}>
         <div>

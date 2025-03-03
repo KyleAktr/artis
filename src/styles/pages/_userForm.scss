@@ -13,8 +13,10 @@ html {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    align-items: center;
 
-    input, select {
+    input,
+    select {
       margin-top: 5px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -24,7 +26,7 @@ html {
     select {
       background-color: white;
       cursor: pointer;
-      
+
       option {
         padding: 10px;
       }

@@ -1,25 +1,32 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Nav from "../components/Nav";
+import { db } from "../firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import NavUser from "../components/NavUser";
 
 const Annoncements = () => {
-  const [annoncements, setAnnoncement] = useState([]);
+  const [annoncements, setAnnoncements] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/announcements")
-      .then((response) => {
-        setAnnoncement(response.data);
-      })
-      .catch((error) => {
-        console.error("Erruer lors de la récupération des annonces :", error);
-      });
-  });
+    const fetchAnnouncements = async () => {
+      try {
+        const annoncesRef = collection(db, "annonces");
+        const snapshot = await getDocs(annoncesRef);
+        const annoncesData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setAnnoncements(annoncesData);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des annonces:", error);
+      }
+    };
+
+    fetchAnnouncements();
+  }, []);
 
   return (
     <div className="annoncements">
-      <Nav></Nav>
+      <NavUser></NavUser>
       <h1>Liste des Annonces</h1>
       <ul>
         {annoncements.map((annoncement) => (

@@ -336,7 +336,24 @@ html {
   margin: 0 auto;
 }
 .form-user label {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
+  align-items: center;
+}
+.form-user label input,
+.form-user label select {
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+.form-user label select {
+  background-color: white;
+  cursor: pointer;
+}
+.form-user label select option {
+  padding: 10px;
 }
 .form-user h2 {
   margin-bottom: 20px;
