@@ -18,7 +18,7 @@ const Home = () => {
       ) : (
         <>
           <Nav></Nav>
-          <h2>Tu n'est pas connecté</h2>
+          <h2>Tu n'es pas connecté</h2>
         </>
       )}
       <Footer />

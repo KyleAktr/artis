@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import NavUser from "../components/NavUser";
+import { useNavigate } from "react-router-dom";
 
 const Annoncements = () => {
   const [annoncements, setAnnoncements] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
         const annoncesRef = collection(db, "annonces");
         const snapshot = await getDocs(annoncesRef);
-        const annoncesData = snapshot.docs.map(doc => ({
+        const annoncesData = snapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setAnnoncements(annoncesData);
       } catch (error) {
@@ -35,6 +38,9 @@ const Annoncements = () => {
             <p>{annoncement.description}</p>
             <p>Publié par : {annoncement.creatorName}</p>
             <p>Le {new Date(annoncement.createdAt).toLocaleDateString()}</p>
+            <button onClick={() => navigate(`/annonce/${annoncement.id}`)}>
+              Voir l'annonce
+            </button>
           </li>
         ))}
       </ul>

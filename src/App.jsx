@@ -10,6 +10,7 @@ import Private from "./pages/private/Private";
 import PrivateHome from "./pages/private/privateHome/PrivateHome";
 import UserProfil from "./pages/private/privateHome/UserProfil";
 import UserForm from "./pages/private/privateHome/UserForm";
+import Annonce from "./pages/Annonce";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/annoncements" element={<Annoncements />} />
+        <Route path="/annonce/:annonceId" element={<Annonce />} />
         <Route path="/user/:userId" element={<UserAnnoncements />} />
         <Route path="/create" element={<CreateAnnoncement />} />
         <Route path="/signin" element={<SignIn />} />
