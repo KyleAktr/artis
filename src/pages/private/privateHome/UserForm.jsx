@@ -19,14 +19,11 @@ const UserForm = () => {
   const [age, setAge] = useState("");
   const disciplines = [
     "Musique",
-    "Art du spectacle",
-    "Peinture",
-    "Sculpture",
+    "Graphisme",
+    "AudioVisuel",
+    "Art / Scène",
     "Photographie",
-    "Danse",
-    "Théâtre",
     "Mode",
-    "Audiovisuel"
   ];
 
   useEffect(() => {
