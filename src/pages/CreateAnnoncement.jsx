@@ -8,6 +8,7 @@ const CreateAnnoncement = () => {
   const { currentUser, userData } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [categorie, setCategorie] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ const CreateAnnoncement = () => {
           creatorName: userData.nom || "Utilisateur inconnu",
           title,
           description,
+          categorie,
           createdAt: new Date().toISOString(),
         });
 
@@ -48,6 +50,22 @@ const CreateAnnoncement = () => {
             onChange={(e) => setTitle(e.target.value)}
             required
           />
+        </div>
+        <div className="categorie">
+          <label htmlFor="categorie">Catégorie :</label>
+          <select
+            id="categorie"
+            value={categorie}
+            onChange={(e) => setCategorie(e.target.value)}
+            required
+          >
+            <option value="musique">Musique</option>
+            <option value="graphisme">Graphisme</option>
+            <option value="audiovisuel">Audiovisuel</option>
+            <option value="art-scene">Art / Scène</option>
+            <option value="photographie">Photographie</option>
+            <option value="mode">Mode</option>
+          </select>
         </div>
         <div>
           <label htmlFor="description">Description :</label>

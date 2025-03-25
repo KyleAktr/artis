@@ -13,11 +13,25 @@ const Annoncements = () => {
   const [selectedPurpose, setSelectedPurpose] = useState(null);
   const navigate = useNavigate();
 
-  const categories = ["Musique", "Graphisme", "AudioVisuel", "Art / Scène", "Photographie", "Mode"];
+  const categories = [
+    "Musique",
+    "Graphisme",
+    "AudioVisuel",
+    "Art / Scène",
+    "Photographie",
+    "Mode",
+  ];
   const numbers = [1, 2, 3, 4, "5+"];
   const levels = ["Débutant", "Intermédiaire", "Avancé"];
   const purposes = ["Lucratif", "Non-Lucratif"];
-  const locations = ["Paris", "Lyon", "Marseille", "Bordeaux", "Lille", "Toulouse"];
+  const locations = [
+    "Paris",
+    "Lyon",
+    "Marseille",
+    "Bordeaux",
+    "Lille",
+    "Toulouse",
+  ];
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -38,9 +52,9 @@ const Annoncements = () => {
   }, []);
 
   const toggleCategory = (category) => {
-    setSelectedCategories(prev => 
-      prev.includes(category) 
-        ? prev.filter(c => c !== category)
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
         : [...prev, category]
     );
   };
@@ -48,7 +62,7 @@ const Annoncements = () => {
   return (
     <div className="annoncements-page">
       <NavUser />
-      
+
       <div className="content">
         <div className="filters-panel">
           <div className="filter-section">
@@ -57,10 +71,16 @@ const Annoncements = () => {
               {categories.map((category) => (
                 <button
                   key={category}
-                  className={`category-btn ${selectedCategories.includes(category) ? 'active' : ''}`}
+                  className={`category-btn ${
+                    selectedCategories.includes(category) ? "active" : ""
+                  }`}
                   onClick={() => toggleCategory(category)}
                 >
-                  <div className={`radio-circle ${selectedCategories.includes(category) ? 'active' : ''}`} />
+                  <div
+                    className={`radio-circle ${
+                      selectedCategories.includes(category) ? "active" : ""
+                    }`}
+                  />
                   {category}
                 </button>
               ))}
@@ -72,8 +92,10 @@ const Annoncements = () => {
             <div className="select-container">
               <select>
                 <option value="">▼</option>
-                {locations.map(location => (
-                  <option key={location} value={location}>{location}</option>
+                {locations.map((location) => (
+                  <option key={location} value={location}>
+                    {location}
+                  </option>
                 ))}
               </select>
             </div>
@@ -85,8 +107,10 @@ const Annoncements = () => {
               {numbers.map((number) => (
                 <button
                   key={number}
-                  className={selectedNumber === number ? 'active' : ''}
-                  onClick={() => setSelectedNumber(selectedNumber === number ? null : number)}
+                  className={selectedNumber === number ? "active" : ""}
+                  onClick={() =>
+                    setSelectedNumber(selectedNumber === number ? null : number)
+                  }
                 >
                   {number}
                 </button>
@@ -100,10 +124,18 @@ const Annoncements = () => {
               {levels.map((level) => (
                 <button
                   key={level}
-                  className={`category-btn ${selectedLevel === level ? 'active' : ''}`}
-                  onClick={() => setSelectedLevel(selectedLevel === level ? null : level)}
+                  className={`category-btn ${
+                    selectedLevel === level ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    setSelectedLevel(selectedLevel === level ? null : level)
+                  }
                 >
-                  <div className={`radio-circle ${selectedLevel === level ? 'active' : ''}`} />
+                  <div
+                    className={`radio-circle ${
+                      selectedLevel === level ? "active" : ""
+                    }`}
+                  />
                   {level}
                 </button>
               ))}
@@ -116,10 +148,20 @@ const Annoncements = () => {
               {purposes.map((purpose) => (
                 <button
                   key={purpose}
-                  className={`category-btn ${selectedPurpose === purpose ? 'active' : ''}`}
-                  onClick={() => setSelectedPurpose(selectedPurpose === purpose ? null : purpose)}
+                  className={`category-btn ${
+                    selectedPurpose === purpose ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    setSelectedPurpose(
+                      selectedPurpose === purpose ? null : purpose
+                    )
+                  }
                 >
-                  <div className={`radio-circle ${selectedPurpose === purpose ? 'active' : ''}`} />
+                  <div
+                    className={`radio-circle ${
+                      selectedPurpose === purpose ? "active" : ""
+                    }`}
+                  />
                   {purpose}
                 </button>
               ))}
@@ -129,8 +171,8 @@ const Annoncements = () => {
 
         <div className="announcements-grid">
           {annoncements.map((annoncement) => (
-            <div 
-              key={annoncement.id} 
+            <div
+              key={annoncement.id}
               className="announcement-card"
               onClick={() => navigate(`/annonce/${annoncement.id}`)}
             >
@@ -138,30 +180,33 @@ const Annoncements = () => {
                 <div className="title-section">
                   <h2>{annoncement.title}</h2>
                   <div className="tags">
-                    {annoncement.categories && annoncement.categories.map((category, index) => (
-                      <span key={index}>{category}</span>
-                    ))}
+                    {annoncement.categories &&
+                      annoncement.categories.map((category, index) => (
+                        <span key={index}>{category}</span>
+                      ))}
                     {annoncement.niveau && <span>{annoncement.niveau}</span>}
                   </div>
                 </div>
                 {annoncement.creatorPhotoURL && (
-                  <img 
-                    src={annoncement.creatorPhotoURL} 
-                    alt="Profile" 
+                  <img
+                    src={annoncement.creatorPhotoURL}
+                    alt="Profile"
                     className="profile-image"
                   />
                 )}
               </div>
 
-              <div className="description">
-                {annoncement.description}
-              </div>
+              <div className="categorie">{annoncement.categorie}</div>
+
+              <div className="description">{annoncement.description}</div>
 
               <div className="card-footer">
                 <div className="username">
                   <span>{annoncement.creatorName}</span>
                   <span>•</span>
-                  <span>{new Date(annoncement.createdAt).toLocaleDateString()}</span>
+                  <span>
+                    {new Date(annoncement.createdAt).toLocaleDateString()}
+                  </span>
                 </div>
               </div>
             </div>
