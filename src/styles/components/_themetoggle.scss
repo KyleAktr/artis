@@ -4,14 +4,14 @@
   left: 30px;
   display: flex;
   background: rgba(30, 30, 30, 0.7);
-  border-radius: 30px;
+  border-radius: 30%;
   padding: 5px;
   z-index: 10;
   
   button {
     width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    height: 30px;
+    border-radius: 30%;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -27,8 +27,8 @@
     }
     
     .icon {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
   }
 }
