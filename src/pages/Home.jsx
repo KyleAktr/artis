@@ -20,7 +20,10 @@ const Home = () => {
 
         <div className="scroll-indicator">
           <p>Swipe</p>
-          <span className="arrow">&#8964;</span>
+          <div className="double-arrow">
+            <span className="arrow">&#8964;</span>
+            <span className="arrow">&#8964;</span>
+          </div>
         </div>
       </div>
       <ThemeToggle />

@@ -21,6 +21,7 @@
   /* Classe spéciale pour la page d'accueil */
   &.home-nav {
     top: 40px;
+    background-color: transparent;
   }
 
   .nav-left {
@@ -56,27 +57,61 @@
       color: rgba(255, 255, 255, 0.7);
     }
   }
+  
 
   .connect-btn, .signup-btn, .logout-btn {
     padding: 8px 20px;
-    border-radius: 30px;
+    border-radius: 5px;
     transition: all 0.3s ease;
-  }
-  
-  .connect-btn {
-    border: 1px solid rgba(255, 255, 255, 0.3);
     
-    &:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
   }
   
   .signup-btn {
-    background: #2a1033;
-    box-shadow: 0 0 20px rgba(146, 61, 179, 0.5);
+    background: #161616;
+    position: relative;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    
+    /* bordure bouton dégradé */
+    &::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      z-index: -2;
+      border-radius: 5px;
+      background: linear-gradient(45deg, #8a2be2, #9370db, #ff69b4, #8a2be2);
+    }
     
     &:hover {
       background: #3a1545;
+    }
+    
+    /* halo bouton */
+    &::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      z-index: -3;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #8a2be2, #9370db, #ff69b4, #8a2be2);
+      filter: blur(15px);
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+    
+    &:hover::before {
+      opacity: 1;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      filter: blur(18px);
     }
   }
   

@@ -32,3 +32,36 @@
     }
   }
 }
+
+/* Ajustements responsifs pour le toggle de thème */
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 20px;
+    left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-toggle {
+    bottom: 15px;
+    left: 15px;
+    
+    button {
+      width: 36px;
+      height: 36px;
+      
+      .icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+/* Pour les écrans en orientation paysage avec petite hauteur */
+@media (max-height: 450px) and (orientation: landscape) {
+  .theme-toggle {
+    bottom: 10px;
+    left: 10px;
+  }
+}
