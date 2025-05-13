@@ -1,13 +1,112 @@
+/* Styles de navigation */
+.navbar {
+  padding-top: 80px;
+}
+
 .nav {
-  background-color: rgba(178, 197, 212, 0.486);
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
   display: flex;
-  justify-content: space-around;
-  height: 10vh;
+  justify-content: space-between;
+  height: 80px;
   align-items: center;
   position: fixed;
   width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0 60px;
+  transition: top 0.3s ease;
+
+  /* Classe spéciale pour la page d'accueil */
+  &.home-nav {
+    top: 40px;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    
+    .logo-img {
+      height: 15px;
+      width: auto;
+    }
+  }
+
+  .nav-center {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-right {
+    display: flex;
+    gap: 15px;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  .connect-btn, .signup-btn, .logout-btn {
+    padding: 8px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  .connect-btn {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+  
+  .signup-btn {
+    background: #2a1033;
+    box-shadow: 0 0 20px rgba(146, 61, 179, 0.5);
+    
+    &:hover {
+      background: #3a1545;
+    }
+  }
+  
+  .logout-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    cursor: pointer;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
 }
 
-.navbar {
-  padding-bottom: 10vh;
+@media (max-width: 900px) {
+  .nav {
+    padding: 0 20px;
+    
+    .nav-center {
+      gap: 15px;
+    }
+  }
 }
+
+@media (max-width: 768px) {
+  .nav {
+    .nav-center {
+      display: none;
+    }
+  }
+}
+

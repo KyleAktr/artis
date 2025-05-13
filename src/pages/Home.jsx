@@ -1,27 +1,29 @@
 import React, { useContext } from "react";
-import Nav from "../components/Nav";
 import { UserContext } from "../context/userContext";
-import Footer from "../components/Footer";
 import NavUser from "../components/NavUser";
+import Nav from "../components/Nav";
+import "../styles/pages/_home.scss";
+import ThemeToggle from "../components/ThemeToggle";
 
 const Home = () => {
   const { currentUser } = useContext(UserContext);
 
   return (
-    <div>
-      {/* <Nav></Nav> */}
-      {currentUser ? (
-        <>
-          <NavUser></NavUser>
-          <h2>Bienvue {currentUser.email}</h2>
-        </>
-      ) : (
-        <>
-          <Nav></Nav>
-          <h2>Tu n'es pas connecté</h2>
-        </>
-      )}
-      <Footer />
+    <div className="home-page">
+      {currentUser ? <NavUser /> : <Nav />}
+      
+      <div className="hero-section">
+        <div className="logo">
+          <h1>artis</h1>
+        </div>
+        <p className="tagline">La plateforme pour les artistes</p>
+
+        <div className="scroll-indicator">
+          <p>Swipe</p>
+          <span className="arrow">&#8964;</span>
+        </div>
+      </div>
+      <ThemeToggle />
     </div>
   );
 };
