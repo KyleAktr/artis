@@ -105,11 +105,21 @@ const UserForm = () => {
   const handleSave = async () => {
     if (currentUser) {
       const userRef = doc(db, "utilisateurs", currentUser.uid);
-      await setDoc(
-        userRef,
-        { age, city, nom, dicipline, details, bio, email, website, photoURL },
-        { merge: true }
-      );
+      
+      // Créer un objet vide pour les données utilisateur
+      const userData = {};
+      
+      if (nom !== undefined && nom !== "") userData.nom = nom;
+      if (city !== undefined && city !== "") userData.city = city;
+      if (dicipline !== undefined && dicipline !== "") userData.dicipline = dicipline;
+      if (details !== undefined && details !== "") userData.details = details;
+      if (bio !== undefined && bio !== "") userData.bio = bio;
+      if (email !== undefined && email !== "") userData.email = email;
+      if (website !== undefined && website !== "") userData.website = website;
+      if (age !== undefined && age !== "") userData.age = age;
+      if (photoURL !== undefined && photoURL !== "") userData.photoURL = photoURL;
+      
+      await setDoc(userRef, userData, { merge: true });
       await updateUserData();
     }
   };
