@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import NavUser from "../components/NavUser";
 import Nav from "../components/Nav";
 import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faInstagram, faWhatsapp, faDiscord } from "@fortawesome/free-brands-svg-icons";
 import "../styles/pages/_annoncements.scss";
 
 const Annoncements = () => {
@@ -41,10 +44,53 @@ const Annoncements = () => {
       try {
         const annoncesRef = collection(db, "annonces");
         const snapshot = await getDocs(annoncesRef);
-        const annoncesData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
+        const annoncesData = await Promise.all(snapshot.docs.map(async (docSnapshot) => {
+          const data = docSnapshot.data();
+          console.log("Données brutes de l'annonce:", data);
+          
+          // Vérifier si l'annonce a un ID de créateur
+          const creatorId = data.creatorId || data.userId || data.uid;
+          
+          if (creatorId) {
+            console.log("ID du créateur trouvé:", creatorId);
+            try {
+              const userRef = doc(db, "utilisateurs", creatorId);
+              const userSnap = await getDoc(userRef);
+              
+              if (userSnap.exists()) {
+                const userData = userSnap.data();
+                console.log("Données utilisateur pour", creatorId, ":", userData);
+                
+                // Vérifier les propriétés disponibles
+                if (userData.photoURL) {
+                  console.log("Photo trouvée:", userData.photoURL);
+                } else {
+                  console.log("Pas de photo trouvée dans les données utilisateur");
+                }
+                
+                return {
+                  id: docSnapshot.id,
+                  ...data,
+                  creatorPhotoURL: userData.photoURL || null,
+                  creatorName: userData.nom || data.creatorName || "Utilisateur"
+                };
+              } else {
+                console.log("Utilisateur non trouvé pour l'ID:", creatorId);
+              }
+            } catch (err) {
+              console.error("Erreur lors de la récupération du profil utilisateur:", err);
+            }
+          } else {
+            console.log("Pas d'ID de créateur trouvé dans l'annonce");
+          }
+          
+          return {
+            id: docSnapshot.id,
+            ...data
+          };
         }));
+        
+        console.log("Données des annonces enrichies:", annoncesData);
         setAnnoncements(annoncesData);
       } catch (error) {
         console.error("Erreur lors de la récupération des annonces:", error);
@@ -173,47 +219,77 @@ const Annoncements = () => {
         </div>
 
         <div className="announcements-grid">
-          {annoncements.map((annoncement) => (
-            <div
-              key={annoncement.id}
-              className="announcement-card"
-              onClick={() => navigate(`/annonce/${annoncement.id}`)}
-            >
-              <div className="card-header">
-                <div className="title-section">
-                  <h2>{annoncement.title}</h2>
-                  <div className="tags">
-                    {annoncement.categories &&
-                      annoncement.categories.map((category, index) => (
-                        <span key={index}>{category}</span>
-                      ))}
-                    {annoncement.niveau && <span>{annoncement.niveau}</span>}
+          {annoncements.map((annoncement) => {
+            return (
+              <div
+                key={annoncement.id}
+                className="announcement-card"
+                onClick={() => navigate(`/annonce/${annoncement.id}`)}
+              >
+                <div className="like-badge">
+                  <FontAwesomeIcon icon={faHeart} />
+                </div>
+                
+                <div className="card-header">
+                  {annoncement.creatorPhotoURL && (
+                    <img
+                      src={annoncement.creatorPhotoURL}
+                      alt="Profile"
+                      className="profile-image"
+                    />
+                  )}
+                  
+                  <div className="title-section">
+                    <h2>{annoncement.title}</h2>
+                    <div className="creator-info">
+                      <span className="username">{annoncement.creatorName || "Utilisateur"}</span>
+                      <span className="separator">•</span>
+                      <span className="date">
+                        {annoncement.createdAt 
+                          ? new Date(annoncement.createdAt).toLocaleDateString() 
+                          : "Date inconnue"}
+                      </span>
+                    </div>
+                    
+                    <div className="tags">
+                      {annoncement.categories &&
+                        annoncement.categories.map((category, index) => (
+                          <span key={index}>{category}</span>
+                        ))}
+                      {annoncement.niveau && <span>{annoncement.niveau}</span>}
+                    </div>
                   </div>
                 </div>
-                {annoncement.creatorPhotoURL && (
-                  <img
-                    src={annoncement.creatorPhotoURL}
-                    alt="Profile"
-                    className="profile-image"
-                  />
+
+                {annoncement.categorie && (
+                  <div className="categorie">{annoncement.categorie}</div>
                 )}
-              </div>
 
-              <div className="categorie">{annoncement.categorie}</div>
+                <div className="description">{annoncement.description}</div>
+                
+                <div className="contact-links">
+                  <a href="#" title="Instagram">
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </a>
+                  <a href="#" title="WhatsApp">
+                    <FontAwesomeIcon icon={faWhatsapp} />
+                  </a>
+                  <a href="#" title="Discord">
+                    <FontAwesomeIcon icon={faDiscord} />
+                  </a>
+                </div>
 
-              <div className="description">{annoncement.description}</div>
-
-              <div className="card-footer">
-                <div className="username">
-                  <span>{annoncement.creatorName}</span>
-                  <span>•</span>
-                  <span>
-                    {new Date(annoncement.createdAt).toLocaleDateString()}
-                  </span>
+                <div className="card-footer">
+                  <span>@{annoncement.creatorName?.toLowerCase().replace(/\s+/g, '-') || "user"}</span>
+                  <div className="date">
+                    {annoncement.createdAt 
+                      ? new Date(annoncement.createdAt).toLocaleDateString() 
+                      : ""}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
