@@ -43,7 +43,7 @@ const NavUser = () => {
           <Link to="/private/private-user-profil" className="profile-icon">
             <FontAwesomeIcon icon={faUserRegular} />
           </Link>
-          <button onClick={logOut} className="logout-btn">Déconnexion</button>
+          <button onClick={logOut} className="colorbtn">Déconnexion</button>
         </div>
       </div>
     </div>
