@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/userContext";
 import NavUser from "../../../components/NavUser";
-import { db } from "../../../firebase-config";
+import { db, storage } from "../../../firebase-config";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
@@ -17,6 +18,10 @@ const UserForm = () => {
   const [email, setEmail] = useState(currentUserEmail);
   const [website, setWebsite] = useState("");
   const [age, setAge] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  
   const disciplines = [
     "Musique",
     "Graphisme",
@@ -40,8 +45,8 @@ const UserForm = () => {
           setBio(docSnap.data().bio);
           setEmail(docSnap.data().email);
           setWebsite(docSnap.data().website);
-
           setAge(docSnap.data().age);
+          setPhotoURL(docSnap.data().photoURL || "");
         }
       };
 
@@ -49,12 +54,45 @@ const UserForm = () => {
     }
   }, [currentUser]);
 
+  const handlePhotoChange = async (e) => {
+    if (e.target.files[0]) {
+      const selectedPhoto = e.target.files[0];
+      setPhoto(selectedPhoto);
+      
+      try {
+        setUploading(true);
+        
+        if (!storage) {
+          throw new Error("Firebase Storage n'est pas correctement initialisé");
+        }
+        
+        const storageRef = ref(storage, `profilePhotos/${currentUser.uid}_${Date.now()}`);
+        
+        await uploadBytes(storageRef, selectedPhoto);
+        
+        const url = await getDownloadURL(storageRef);
+        
+        setPhotoURL(url);
+        
+        const userRef = doc(db, "utilisateurs", currentUser.uid);
+        await setDoc(userRef, { photoURL: url }, { merge: true });
+        
+        alert("Photo de profil mise à jour avec succès !");
+      } catch (error) {
+        console.error("Erreur lors du téléchargement de la photo:", error);
+        alert(`Erreur lors du téléchargement de la photo: ${error.message}`);
+      } finally { 
+        setUploading(false);
+      }
+    }
+  };
+
   const handleSave = async () => {
     if (currentUser) {
       const userRef = doc(db, "utilisateurs", currentUser.uid);
       await setDoc(
         userRef,
-        { age, city, nom, dicipline, details, bio, email, website },
+        { age, city, nom, dicipline, details, bio, email, website, photoURL },
         { merge: true }
       );
       await updateUserData();
@@ -75,6 +113,42 @@ const UserForm = () => {
         d'autres artistes.
       </h1>
       <form className="form-user" onSubmit={handleClick}>
+        <div className="user-photo">
+          <h2>Photo de profil</h2>
+          <div className="photo-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
+            {photoURL && (
+              <img 
+                src={photoURL} 
+                alt="Photo de profil" 
+                style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '50%', marginBottom: '15px' }} 
+              />
+            )}
+            
+            <label 
+              htmlFor="photo-upload" 
+              style={{ 
+                padding: '8px 16px', 
+                backgroundColor: uploading ? '#ccc' : '#4a4a4a',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: uploading ? 'not-allowed' : 'pointer',
+                display: 'inline-block'
+              }}
+            >
+              {uploading ? 'Téléchargement en cours...' : 'Choisir une photo'}
+            </label>
+            <input 
+              id="photo-upload"
+              type="file" 
+              accept="image/*" 
+              onChange={handlePhotoChange} 
+              style={{ display: 'none' }}
+              disabled={uploading}
+            />
+          </div>
+        </div>
+
         <div className="user-infos">
           <h2>Informations générales</h2>
           <label>
