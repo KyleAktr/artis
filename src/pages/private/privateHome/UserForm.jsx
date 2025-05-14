@@ -3,7 +3,7 @@ import { UserContext } from "../../../context/userContext";
 import NavUser from "../../../components/NavUser";
 import { db, storage } from "../../../firebase-config";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
@@ -19,6 +19,7 @@ const UserForm = () => {
   const [website, setWebsite] = useState("");
   const [age, setAge] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const [previousPhotoURL, setPreviousPhotoURL] = useState("");
   const [photo, setPhoto] = useState(null);
   const [uploading, setUploading] = useState(false);
   
@@ -47,6 +48,7 @@ const UserForm = () => {
           setWebsite(docSnap.data().website);
           setAge(docSnap.data().age);
           setPhotoURL(docSnap.data().photoURL || "");
+          setPreviousPhotoURL(docSnap.data().photoURL || "");
         }
       };
 
@@ -66,6 +68,18 @@ const UserForm = () => {
           throw new Error("Firebase Storage n'est pas correctement initialisé");
         }
         
+        // Suppression de l'ancienne photo si elle existe
+        if (previousPhotoURL) {
+          try {
+            const oldPhotoPath = decodeURIComponent(previousPhotoURL.split('/o/')[1].split('?')[0]);
+            const oldPhotoRef = ref(storage, oldPhotoPath);
+            await deleteObject(oldPhotoRef);
+            console.log("Ancienne photo supprimée avec succès");
+          } catch (deleteError) {
+            console.error("Erreur lors de la suppression de l'ancienne photo:", deleteError);
+          }
+        }
+        
         const storageRef = ref(storage, `profilePhotos/${currentUser.uid}_${Date.now()}`);
         
         await uploadBytes(storageRef, selectedPhoto);
@@ -73,6 +87,7 @@ const UserForm = () => {
         const url = await getDownloadURL(storageRef);
         
         setPhotoURL(url);
+        setPreviousPhotoURL(url);
         
         const userRef = doc(db, "utilisateurs", currentUser.uid);
         await setDoc(userRef, { photoURL: url }, { merge: true });
