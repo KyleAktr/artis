@@ -8,9 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
-import { faListUl, faLocationDot, faUsers, faGraduationCap, faCircleInfo, faClock, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faListUl, faLocationDot, faCircleUser, faGraduationCap, faCircleInfo, faClock, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { faInstagram, faWhatsapp, faDiscord } from "@fortawesome/free-brands-svg-icons";
 import "../styles/pages/_annoncements.scss";
+import ThemeToggle from "../components/ThemeToggle";
 
 const Annoncements = () => {
   const [annoncements, setAnnoncements] = useState([]);
@@ -135,7 +136,10 @@ const Annoncements = () => {
       <div className="content">
         <div className="filters-panel">
           <div className="filter-section">
-            <h2 onClick={() => toggleSection('categories')} className="filter-header">
+            <h2 
+              onClick={() => toggleSection('categories')} 
+              className={`filter-header ${expandedSections.categories ? 'active' : ''}`}
+            >
               <span className="title-with-icon">
                 <FontAwesomeIcon icon={faListUl} className="icon" />
                 Catégories
@@ -162,9 +166,16 @@ const Annoncements = () => {
               </div>
             )}
           </div>
+          
+          <div className="theme-section">
+            <ThemeToggle />
+          </div>
 
           <div className="filter-section">
-            <h2 onClick={() => toggleSection('locations')} className="filter-header">
+            <h2 
+              onClick={() => toggleSection('locations')} 
+              className={`filter-header ${expandedSections.locations ? 'active' : ''}`}
+            >
               <span className="title-with-icon">
                 <FontAwesomeIcon icon={faLocationDot} className="icon" />
                 Lieux
@@ -185,10 +196,13 @@ const Annoncements = () => {
           </div>
 
           <div className="filter-section">
-            <h2 onClick={() => toggleSection('artists')} className="filter-header">
+            <h2 
+              onClick={() => toggleSection('artists')} 
+              className={`filter-header ${expandedSections.artists ? 'active' : ''}`}
+            >
               <span className="title-with-icon">
-                <FontAwesomeIcon icon={faUsers} className="icon" />
-                Nombre de personnes
+                <FontAwesomeIcon icon={faCircleUser} className="icon" />
+                Artistes
               </span>
             </h2>
             {expandedSections.artists && (
@@ -209,7 +223,10 @@ const Annoncements = () => {
           </div>
 
           <div className="filter-section">
-            <h2 onClick={() => toggleSection('levels')} className="filter-header">
+            <h2 
+              onClick={() => toggleSection('levels')} 
+              className={`filter-header ${expandedSections.levels ? 'active' : ''}`}
+            >
               <span className="title-with-icon">
                 <FontAwesomeIcon icon={faGraduationCap} className="icon" />
                 Niveaux
@@ -240,7 +257,10 @@ const Annoncements = () => {
           </div>
 
           <div className="filter-section">
-            <h2 onClick={() => toggleSection('purpose')} className="filter-header">
+            <h2 
+              onClick={() => toggleSection('purpose')} 
+              className={`filter-header ${expandedSections.purpose ? 'active' : ''}`}
+            >
               <span className="title-with-icon">
                 <FontAwesomeIcon icon={faCircleInfo} className="icon" />
                 But
@@ -273,7 +293,10 @@ const Annoncements = () => {
           </div>
           
           <div className="filter-section">
-            <h2 onClick={() => toggleSection('duration')} className="filter-header">
+            <h2 
+              onClick={() => toggleSection('duration')} 
+              className={`filter-header ${expandedSections.duration ? 'active' : ''}`}
+            >
               <span className="title-with-icon">
                 <FontAwesomeIcon icon={faClock} className="icon" />
                 Durée
@@ -292,7 +315,10 @@ const Annoncements = () => {
           </div>
           
           <div className="filter-section">
-            <h2 onClick={() => toggleSection('formation')} className="filter-header">
+            <h2 
+              onClick={() => toggleSection('formation')} 
+              className={`filter-header ${expandedSections.formation ? 'active' : ''}`}
+            >
               <span className="title-with-icon">
                 <FontAwesomeIcon icon={faGraduationCap} className="icon" />
                 Formation
@@ -309,6 +335,7 @@ const Annoncements = () => {
               </div>
             )}
           </div>
+          
         </div>
 
         <div className="announcements-grid">
