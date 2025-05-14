@@ -6,7 +6,8 @@ import Nav from "../components/Nav";
 import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faInstagram, faWhatsapp, faDiscord } from "@fortawesome/free-brands-svg-icons";
 import "../styles/pages/_annoncements.scss";
 
@@ -227,7 +228,7 @@ const Annoncements = () => {
                 onClick={() => navigate(`/annonce/${annoncement.id}`)}
               >
                 <div className="like-badge">
-                  <FontAwesomeIcon icon={faHeart} />
+                  <FontAwesomeIcon icon={faHeartRegular} />
                 </div>
                 
                 <div className="card-header">

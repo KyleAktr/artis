@@ -3,6 +3,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import "../styles/components/_navbar.scss";
 import logoImg from "../assets/img/logo_artis.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser as faUserRegular } from "@fortawesome/free-regular-svg-icons";
 
 const NavUser = () => {
   const navigate = useNavigate();
@@ -38,7 +40,9 @@ const NavUser = () => {
         </div>
         
         <div className="nav-right">
-          <Link to="/private/private-user-profil">Mon Profil</Link>
+          <Link to="/private/private-user-profil" className="profile-icon">
+            <FontAwesomeIcon icon={faUserRegular} />
+          </Link>
           <button onClick={logOut} className="logout-btn">Déconnexion</button>
         </div>
       </div>

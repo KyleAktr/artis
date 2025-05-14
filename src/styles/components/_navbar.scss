@@ -46,6 +46,7 @@
   .nav-right {
     display: flex;
     gap: 15px;
+    align-items: center;
   }
 
   a {
@@ -123,6 +124,27 @@
     
     &:hover {
       background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    svg {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.9);
     }
   }
 }
