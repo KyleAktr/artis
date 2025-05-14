@@ -27,11 +27,47 @@
         color: white;
         font-weight: 500;
         padding-bottom: 10px;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .title-with-icon {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          
+          .icon {
+            font-size: 1rem;
+            width: 18px;
+            height: 18px;
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
       }
 
       .filter-section {
         margin-bottom: 30px;
+        
+        .categories-grid, .numbers-grid, .select-container {
+          animation: fadeIn 0.3s ease;
+          transform-origin: top;
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
         .filter-title {
           font-size: 1rem;
@@ -92,6 +128,7 @@
                   font-weight: bold;
                   transform: translateY(-1px);
                 }
+
               }
             }
           }

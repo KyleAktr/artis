@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { faListUl, faLocationDot, faUsers, faGraduationCap, faCircleInfo, faClock, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { faInstagram, faWhatsapp, faDiscord } from "@fortawesome/free-brands-svg-icons";
 import "../styles/pages/_annoncements.scss";
 
@@ -17,8 +18,24 @@ const Annoncements = () => {
   const [selectedNumber, setSelectedNumber] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedPurpose, setSelectedPurpose] = useState(null);
+  const [expandedSections, setExpandedSections] = useState({
+    categories: true,
+    locations: false,
+    artists: false,
+    levels: false,
+    purpose: false,
+    duration: false,
+    formation: false
+  });
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
+
+  const toggleSection = (section) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
 
   const categories = [
     "Musique",
@@ -39,6 +56,8 @@ const Annoncements = () => {
     "Lille",
     "Toulouse",
   ];
+  const durations = ["Court terme", "Long terme"];
+  const formations = ["Oui", "Non"];
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -116,106 +135,179 @@ const Annoncements = () => {
       <div className="content">
         <div className="filters-panel">
           <div className="filter-section">
-            <h2>Catégories</h2>
-            <div className="categories-grid">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  className={`category-btn ${
-                    selectedCategories.includes(category) ? "active" : ""
-                  }`}
-                  onClick={() => toggleCategory(category)}
-                >
-                  <div
-                    className={`radio-circle ${
+            <h2 onClick={() => toggleSection('categories')} className="filter-header">
+              <span className="title-with-icon">
+                <FontAwesomeIcon icon={faListUl} className="icon" />
+                Catégories
+              </span>
+            </h2>
+            {expandedSections.categories && (
+              <div className="categories-grid">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    className={`category-btn ${
                       selectedCategories.includes(category) ? "active" : ""
                     }`}
-                  />
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="filter-section">
-            <h2>Lieux</h2>
-            <div className="select-container">
-              <select>
-                <option value="">▼</option>
-                {locations.map((location) => (
-                  <option key={location} value={location}>
-                    {location}
-                  </option>
+                    onClick={() => toggleCategory(category)}
+                  >
+                    <div
+                      className={`radio-circle ${
+                        selectedCategories.includes(category) ? "active" : ""
+                      }`}
+                    />
+                    {category}
+                  </button>
                 ))}
-              </select>
-            </div>
+              </div>
+            )}
           </div>
 
           <div className="filter-section">
-            <h2>Nombre de personnes</h2>
-            <div className="numbers-grid">
-              {numbers.map((number) => (
-                <button
-                  key={number}
-                  className={selectedNumber === number ? "active" : ""}
-                  onClick={() =>
-                    setSelectedNumber(selectedNumber === number ? null : number)
-                  }
-                >
-                  {number}
-                </button>
-              ))}
-            </div>
+            <h2 onClick={() => toggleSection('locations')} className="filter-header">
+              <span className="title-with-icon">
+                <FontAwesomeIcon icon={faLocationDot} className="icon" />
+                Lieux
+              </span>
+            </h2>
+            {expandedSections.locations && (
+              <div className="select-container">
+                <select>
+                  <option value="">▼</option>
+                  {locations.map((location) => (
+                    <option key={location} value={location}>
+                      {location}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="filter-section">
-            <h2>Niveaux</h2>
-            <div className="categories-grid">
-              {levels.map((level) => (
-                <button
-                  key={level}
-                  className={`category-btn ${
-                    selectedLevel === level ? "active" : ""
-                  }`}
-                  onClick={() =>
-                    setSelectedLevel(selectedLevel === level ? null : level)
-                  }
-                >
-                  <div
-                    className={`radio-circle ${
+            <h2 onClick={() => toggleSection('artists')} className="filter-header">
+              <span className="title-with-icon">
+                <FontAwesomeIcon icon={faUsers} className="icon" />
+                Nombre de personnes
+              </span>
+            </h2>
+            {expandedSections.artists && (
+              <div className="numbers-grid">
+                {numbers.map((number) => (
+                  <button
+                    key={number}
+                    className={selectedNumber === number ? "active" : ""}
+                    onClick={() =>
+                      setSelectedNumber(selectedNumber === number ? null : number)
+                    }
+                  >
+                    {number}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="filter-section">
+            <h2 onClick={() => toggleSection('levels')} className="filter-header">
+              <span className="title-with-icon">
+                <FontAwesomeIcon icon={faGraduationCap} className="icon" />
+                Niveaux
+              </span>
+            </h2>
+            {expandedSections.levels && (
+              <div className="categories-grid">
+                {levels.map((level) => (
+                  <button
+                    key={level}
+                    className={`category-btn ${
                       selectedLevel === level ? "active" : ""
                     }`}
-                  />
-                  {level}
-                </button>
-              ))}
-            </div>
+                    onClick={() =>
+                      setSelectedLevel(selectedLevel === level ? null : level)
+                    }
+                  >
+                    <div
+                      className={`radio-circle ${
+                        selectedLevel === level ? "active" : ""
+                      }`}
+                    />
+                    {level}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="filter-section">
-            <h2>But</h2>
-            <div className="categories-grid">
-              {purposes.map((purpose) => (
-                <button
-                  key={purpose}
-                  className={`category-btn ${
-                    selectedPurpose === purpose ? "active" : ""
-                  }`}
-                  onClick={() =>
-                    setSelectedPurpose(
-                      selectedPurpose === purpose ? null : purpose
-                    )
-                  }
-                >
-                  <div
-                    className={`radio-circle ${
+            <h2 onClick={() => toggleSection('purpose')} className="filter-header">
+              <span className="title-with-icon">
+                <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                But
+              </span>
+            </h2>
+            {expandedSections.purpose && (
+              <div className="categories-grid">
+                {purposes.map((purpose) => (
+                  <button
+                    key={purpose}
+                    className={`category-btn ${
                       selectedPurpose === purpose ? "active" : ""
                     }`}
-                  />
-                  {purpose}
-                </button>
-              ))}
-            </div>
+                    onClick={() =>
+                      setSelectedPurpose(
+                        selectedPurpose === purpose ? null : purpose
+                      )
+                    }
+                  >
+                    <div
+                      className={`radio-circle ${
+                        selectedPurpose === purpose ? "active" : ""
+                      }`}
+                    />
+                    {purpose}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          <div className="filter-section">
+            <h2 onClick={() => toggleSection('duration')} className="filter-header">
+              <span className="title-with-icon">
+                <FontAwesomeIcon icon={faClock} className="icon" />
+                Durée
+              </span>
+            </h2>
+            {expandedSections.duration && (
+              <div className="categories-grid">
+                {durations.map((duration) => (
+                  <button key={duration} className="category-btn">
+                    <div className="radio-circle" />
+                    {duration}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          <div className="filter-section">
+            <h2 onClick={() => toggleSection('formation')} className="filter-header">
+              <span className="title-with-icon">
+                <FontAwesomeIcon icon={faGraduationCap} className="icon" />
+                Formation
+              </span>
+            </h2>
+            {expandedSections.formation && (
+              <div className="categories-grid">
+                {formations.map((formation) => (
+                  <button key={formation} className="category-btn">
+                    <div className="radio-circle" />
+                    {formation}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
