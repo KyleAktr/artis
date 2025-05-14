@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import NavUser from "../components/NavUser";
+import Nav from "../components/Nav";
+import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/pages/_annoncements.scss";
 
@@ -12,6 +14,7 @@ const Annoncements = () => {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedPurpose, setSelectedPurpose] = useState(null);
   const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
 
   const categories = [
     "Musique",
@@ -61,7 +64,7 @@ const Annoncements = () => {
 
   return (
     <div className="annoncements-page">
-      <NavUser />
+      {currentUser ? <NavUser /> : <Nav />}
 
       <div className="content">
         <div className="filters-panel">

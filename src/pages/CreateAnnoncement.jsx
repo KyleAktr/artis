@@ -3,12 +3,21 @@ import { db } from "../firebase-config";
 import { addDoc, collection } from "firebase/firestore";
 import { UserContext } from "../context/userContext";
 import NavUser from "../components/NavUser";
+import Nav from "../components/Nav";
+import { useNavigate } from "react-router-dom";
 
 const CreateAnnoncement = () => {
   const { currentUser, userData } = useContext(UserContext);
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categorie, setCategorie] = useState("");
+
+  React.useEffect(() => {
+    if (!currentUser) {
+      navigate("/signin");
+    }
+  }, [currentUser, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +47,7 @@ const CreateAnnoncement = () => {
 
   return (
     <div>
-      <NavUser></NavUser>
+      {currentUser ? <NavUser /> : <Nav />}
       <h1>Publier une annonce</h1>
       <form onSubmit={handleSubmit}>
         <div>
