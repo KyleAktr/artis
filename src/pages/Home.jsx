@@ -5,7 +5,11 @@ import Nav from "../components/Nav";
 import "../styles/pages/_home.scss";
 import ThemeToggle from "../components/ThemeToggle";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
 
 const Home = () => {
   const { currentUser } = useContext(UserContext);
@@ -69,32 +73,55 @@ const Home = () => {
             collaborer ensemble.
           </p>
         </div>
-        <div className="categories-carrousel-cards">
-          <div className="card">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/0/100.png"
-              alt="musique"
-            ></img>
-          </div>
-          <div className="card">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/0/100.png"
-              alt="musique"
-            ></img>
-          </div>
-          <div className="card">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/0/100.png"
-              alt="musique"
-            ></img>
-          </div>
-          <div className="card">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/0/100.png"
-              alt="musique"
-            ></img>
-          </div>
-        </div>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={20}
+          slidesPerView={3}
+          navigation
+          pagination={{ clickable: true }}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
+          <SwiperSlide>
+            <div className="card">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/0/100.png"
+                alt="musique"
+              />
+              <p>Musique</p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="card">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/0/100.png"
+                alt="graphisme"
+              />
+              <p>Graphisme</p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="card">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/0/100.png"
+                alt="danse"
+              />
+              <p>Danse</p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="card">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/0/100.png"
+                alt="cinéma"
+              />
+              <p>Cinéma</p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </div>
       <ThemeToggle />
       {/* <Footer /> */}
